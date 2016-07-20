@@ -47,4 +47,11 @@ public class SampleData {
             "http://bro.do/6159-product_thumbnail_default/tambora-choco-tan-black-sole.jpg",
             "http://bro.do/6157-product_thumbnail_default/tambora-choco-tan-black-sole.jpg"
     };
+
+    public static  String[] thumbLarge = new String[]{
+            "http://bro.do/6158-product_zoom_default/tambora-choco-tan-black-sole.jpg",
+            "http://bro.do/6160-product_zoom_default/tambora-choco-tan-black-sole.jpg",
+            "http://bro.do/6159-product_zoom_default/tambora-choco-tan-black-sole.jpg",
+            "http://bro.do/6157-product_zoom_default/tambora-choco-tan-black-sole.jpg"
+    };
 }

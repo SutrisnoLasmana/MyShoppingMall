@@ -7,9 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class CategoryActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     private ListView lvCategory;
     private String[] categories = new String[]{
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         lvCategory = (ListView)findViewById(R.id.lv_category);
         lvCategory.setOnItemClickListener(this);
 
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(MainActivity.this,
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(CategoryActivity.this,
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,categories);
         lvCategory.setAdapter(categoryAdapter);
@@ -34,9 +33,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        //Toast.makeText(MainActivity.this, "Item clicked" +categories[i], Toast.LENGTH_SHORT).show();
+        //Toast.makeText(CategoryActivity.this, "Item clicked" +categories[i], Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(MainActivity.this, ProductActivity.class);
+        Intent intent = new Intent(CategoryActivity.this, ProductActivity.class);
         intent.putExtra("category", categories[i]);
         startActivity(intent);
     }

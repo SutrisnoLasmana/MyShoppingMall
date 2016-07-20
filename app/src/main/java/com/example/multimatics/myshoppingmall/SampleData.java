@@ -40,4 +40,11 @@ public class SampleData {
             {"IRON RACER","http://bro.do/6039-product_zoom_default/iron-racer.jpg","Rp 325,000.00"},
             {"BLU SLIDER","http://bro.do/6017-product_zoom_default/blu-slider-.jpg","Rp 325,000.00"}
     };
+
+    public static  String[] thumb = new String[]{
+            "http://bro.do/6158-product_thumbnail_default/tambora-choco-tan-black-sole.jpg",
+            "http://bro.do/6160-product_thumbnail_default/tambora-choco-tan-black-sole.jpg",
+            "http://bro.do/6159-product_thumbnail_default/tambora-choco-tan-black-sole.jpg",
+            "http://bro.do/6157-product_thumbnail_default/tambora-choco-tan-black-sole.jpg"
+    };
 }

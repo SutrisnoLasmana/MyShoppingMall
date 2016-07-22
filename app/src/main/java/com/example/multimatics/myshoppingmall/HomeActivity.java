@@ -17,25 +17,33 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.multimatics.myshoppingmall.api.request.GetAllProductsRequest;
+import com.example.multimatics.myshoppingmall.db.CartHelper;
+import com.example.multimatics.myshoppingmall.db.CartItem;
 
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         GetAllProductsRequest.OnGetAllProductRequestListener,
-        AdapterView.OnItemClickListener{
+        AdapterView.OnItemClickListener,
+        View.OnClickListener{
 
     private ListView lvItem;
     private ProgressBar progressBar;
+    private TextView tvTitle, tvCart;
+    private ImageView imgCart;
 
     private ProductAdapter adapter;
     private GetAllProductsRequest mGetAllProductsRequest;
     private ArrayList<Product> listItem;
+    private CartHelper mCartHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +52,16 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         //Tambahan
         lvItem = (ListView)findViewById(R.id.lv_item);
         progressBar = (ProgressBar)findViewById(R.id.progressbar);
+        tvTitle = (TextView)findViewById(R.id.tv_title);
+        tvCart = (TextView)findViewById(R.id.tv_cart);
+        imgCart = (ImageView)findViewById(R.id.img_cart);
+        imgCart.setOnClickListener(this);
+
+        mCartHelper = new CartHelper(HomeActivity.this);
 
         adapter = new ProductAdapter(HomeActivity.this);
         listItem = new ArrayList<>();
@@ -74,6 +89,24 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    private void updateCartQty(){
+        ArrayList<CartItem> list = mCartHelper.getAll();
+        tvCart.setVisibility(View.GONE);
+        if(list != null){
+            if(list.size() > 0){
+                int cartQty = list.size();
+                tvCart.setVisibility(View.VISIBLE);
+                tvCart.setText(String.valueOf(cartQty));
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateCartQty();
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -84,12 +117,7 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -179,5 +207,13 @@ public class HomeActivity extends AppCompatActivity
         Intent mIntent = new Intent(HomeActivity.this, DetailProductActivity.class);
         mIntent.putExtra("product", listItem.get(position));
         startActivity(mIntent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.img_cart){
+            Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+            startActivity(intent);
+        }
     }
 }
